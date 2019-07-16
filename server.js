@@ -29,9 +29,16 @@ const port = 3000;
 // the view should display just the names of each mission
 // display the mission names as <li> in a <ul> with the class name "missions"
 const marsMissions = require('./models/marsMissions')
-app.get('/missions', (req,res)=> {
+
+let missionNames = []
+
+for(let i =0; i < marsMissions.length; i++){
+  missionNames.push(marsMissions[i].name)
+}
+
+app.get('/missions/', (req,res)=> {
   res.render('index.ejs', {
-    missions: JSON.stringify(marsMissions)
+    missionNames
   })
 })
 
