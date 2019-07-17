@@ -30,15 +30,14 @@ const port = 3000;
 // display the mission names as <li> in a <ul> with the class name "missions"
 const marsMissions = require('./models/marsMissions')
 
-let missionNames = []
+app.get('/missions', (req,res) => {
+  res.send(marsMissions)
+})
 
-for(let i =0; i < marsMissions.length; i++){
-  missionNames.push(marsMissions[i].name)
-}
 
-app.get('/missions/', (req,res)=> {
+app.get('/missions/names', (req,res)=> {
   res.render('index.ejs', {
-    missionNames
+    marsMissions
   })
 })
 
@@ -46,6 +45,12 @@ app.get('/missions/', (req,res)=> {
 // send data to 'missions/show.ejs' view
 // the view should display all the data for a single mission
 
+
+app.get('/missions/:index', (req, res) => {
+  res.render('show.ejs', {
+  mission: marsMissions[req.params.index]
+  })
+});
 
 
 // LISTENER
